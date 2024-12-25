@@ -1,1 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
+@import '../public/styles/theme';
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.clickable {
+  cursor: pointer;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}

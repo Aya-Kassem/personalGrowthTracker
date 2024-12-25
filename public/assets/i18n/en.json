@@ -1,0 +1,17 @@
+{
+    "shared": {
+        "lang": "English",
+        "save": "Save"
+    },
+    "profile":{
+        "name": "Name",
+        "title": "Title",
+        "company": "Company",
+        "contract-type": "Contract Type",
+        "email": "Email",
+        "github": "Github Account",
+        "linkedin": "Linkedin Account",
+        "edit": "Edit Profile",
+        "password": "Password"
+    }
+}

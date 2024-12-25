@@ -1,0 +1,33 @@
+<section class="signIn">
+  <div class="container">
+    <div class="row">
+        <form [formGroup]="signInForm" (ngSubmit)="signInUser()" >
+            <div class="col-12 mb-3">
+            <label for="email" class="mb-2">{{
+                "profile.email" | translate
+            }}</label>
+            <input
+                type="email"
+                id="email"
+                formControlName="email"
+                class="form-control w-100"
+                autocomplete="off"
+            />
+            </div>
+
+            <div class="col-12">
+            <label for="password" class="mb-2">{{
+                "profile.password" | translate
+            }}</label>
+            <input
+                type="password"
+                id="password"
+                formControlName="password"
+                class="form-control w-100"
+                autocomplete="off"
+            />
+            </div>
+        </form>
+    </div>
+  </div>
+</section>

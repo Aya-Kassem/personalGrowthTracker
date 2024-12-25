@@ -1,0 +1,35 @@
+@import "../../../../../public/styles/theme.scss";
+
+.userInfo {
+  .user-img {
+    img {
+      border-radius: 15px;
+      border: 1px solid var(--text-color);
+    }
+
+    .editProfileSection button,
+    .editProfileSection i {
+      color: var(--secondaryColor);
+    }
+  }
+
+  .form-control {
+    background-color: inherit !important;
+    &:focus,
+    &:hover,
+    &:active {
+      box-shadow: none !important;
+      outline: 0 !important;
+      border-color: var(--text-color);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .saveProfileBtn,
+  .form-control {
+    color: var(--text-color);
+  }
+}

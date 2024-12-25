@@ -1,0 +1,55 @@
+@import "../../../../public/styles/theme.scss";
+
+.header {
+  grid-area: header;
+  padding: 1rem;
+
+  .info {
+    .user {
+      padding: 3px 25px;
+
+      img {
+        border-radius: 50%;
+      }
+
+      span {
+        &:lang(en) {
+          margin-left: 10px;
+        }
+        &:lang(ar) {
+          margin-right: 10px;
+        }
+      }
+    }
+
+    .lang {
+      padding-top: 3px;
+      padding-bottom: 3px;
+
+      &:lang(en) {
+        margin-right: 10px;
+      }
+      &:lang(ar) {
+        margin-left: 10px;
+      }
+    }
+  }
+
+  .icons {
+    i {
+      color: var(--headerIconsColor);
+    }
+
+    i:first-child{
+      font-size: 24px;
+    }
+
+    .sunIcon{
+      font-size: 27px;
+    }
+
+    .moonIcon{
+      font-size: 20px;
+    }
+  }
+}

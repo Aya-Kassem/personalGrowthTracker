@@ -1,0 +1,26 @@
+@import './variables';
+
+
+@mixin theme($theme) {
+  @if $theme == light {
+    --background-color: #{$light-background-color};
+    --text-color: #{$light-text-color};
+    --headerIconsColor: #{$light-headerIconsColor};
+    --secondaryColor: #{$secondaryColor};
+
+  } @else if $theme == dark {
+    --background-color: #{$dark-background-color};
+    --text-color: #{$dark-text-color};
+    --headerIconsColor: #{$dark-headerIconsColor};
+    --secondaryColor: #{$secondaryColor};
+  }
+}
+
+// Apply the theme mixin to body classes
+body.light-mode {
+  @include theme(light);
+}
+
+body.dark-mode {
+  @include theme(dark);
+}

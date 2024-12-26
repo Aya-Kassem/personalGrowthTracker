@@ -3,6 +3,11 @@
         "lang": "عربي",
         "save": "حفظ"
     },
+    "auth":{
+        "signInBtn": "تسجيل الدخول",
+        "signUpBtn": "إنشاء حساب",
+        "ExitAccount": "هل لديك حساب؟!"
+    },
     "profile":{
         "name": "الإسم",
         "title": "المسمى الوظيفي",

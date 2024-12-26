@@ -3,6 +3,11 @@
         "lang": "English",
         "save": "Save"
     },
+    "auth": {
+        "signInBtn": "Sign In",
+        "signUpBtn": "Sign Up",
+        "ExitAccount": "Do You Have an Account Already?!"
+    },
     "profile":{
         "name": "Name",
         "title": "Title",

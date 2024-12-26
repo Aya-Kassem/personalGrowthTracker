@@ -7,12 +7,14 @@
     --text-color: #{$light-text-color};
     --headerIconsColor: #{$light-headerIconsColor};
     --secondaryColor: #{$secondaryColor};
+    --border-color: #{$light-border-color};
 
   } @else if $theme == dark {
     --background-color: #{$dark-background-color};
     --text-color: #{$dark-text-color};
     --headerIconsColor: #{$dark-headerIconsColor};
     --secondaryColor: #{$secondaryColor};
+    --border-color: #{$dark-border-color};
   }
 }
 

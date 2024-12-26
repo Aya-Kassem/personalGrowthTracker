@@ -1,0 +1,54 @@
+@import "../../../../../../public/styles/theme.scss";
+
+.signUp {
+  height: 100vh;
+  border: 1px solid #fff;
+  width: 100%;
+
+  label {
+    color: var(--secondaryColor);
+    font-weight: 500;
+  }
+
+  .form-control {
+    background-color: var(--background-color) !important;
+    color: var(--secondaryColor);
+    border-color: var(--border-color);
+
+    &:focus,
+    &:hover,
+    &:active {
+      box-shadow: none !important;
+      outline: 0 !important;
+      border-color: var(--border-color);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+    }
+  }
+
+  .signUpBtn {
+    color: var(--secondaryColor);
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  form {
+    @media screen and (min-width: 768px) {
+      width: 60%;
+    }
+  }
+}
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active,
+input:-internal-autofill-selected {
+  // box-shadow: none !important;
+  // outline: 0 !important;
+  // border-color: var(--text-color);
+  -webkit-text-fill-color: var(--secondaryColor);
+  background-color: var(--background-color) !important;
+  // transition: background-color 5000s ease-in-out 0s;
+}

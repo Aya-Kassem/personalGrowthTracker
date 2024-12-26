@@ -6,9 +6,11 @@ import { MainButtonsDirective } from '../../shared/Directives/app-button.directi
 import { AsyncPipe, CommonModule, NgOptimizedImage } from '@angular/common';
 import { TranslatePipe } from '@ngx-translate/core';
 import { SignInComponent } from './auth/SignIn/signIn.component';
+import { SignUpComponent } from './auth/signUp/sign-up.component';
+import { HeaderComponent } from '../../components/header/header.component';
 
 @NgModule({
-  declarations: [UserProfileComponent, SignInComponent],
+  declarations: [UserProfileComponent, SignInComponent, SignUpComponent],
   imports: [
     UserRoutingModule,
     FormsModule,
@@ -17,7 +19,8 @@ import { SignInComponent } from './auth/SignIn/signIn.component';
     AsyncPipe,
     CommonModule,
     NgOptimizedImage,
-    TranslatePipe
+    TranslatePipe,
+    HeaderComponent
   ],
   exports: []
 })

@@ -16,7 +16,7 @@ import { UnsubscripeHelperClass } from '../../shared/Helpers/removeSubscription'
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
   standalone: true,
-  imports: [TranslatePipe, CommonModule, AsyncPipe],
+  imports: [TranslatePipe, CommonModule, AsyncPipe, MainButtonsDirective],
 })
 export class HeaderComponent extends UnsubscripeHelperClass {
   private AppStore = inject(

@@ -6,7 +6,8 @@
     "auth": {
         "signInBtn": "Sign In",
         "signUpBtn": "Sign Up",
-        "ExitAccount": "Do You Have an Account Already?!"
+        "ExitAccount": "Have an Account ?!",
+        "NoAccount": "Don`t Have an Account ?!"
     },
     "profile":{
         "name": "Name",

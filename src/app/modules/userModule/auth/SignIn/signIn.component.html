@@ -1,33 +1,66 @@
-<section class="signIn">
-  <div class="container">
-    <div class="row">
-        <form [formGroup]="signInForm" (ngSubmit)="signInUser()" >
-            <div class="col-12 mb-3">
-            <label for="email" class="mb-2">{{
-                "profile.email" | translate
-            }}</label>
-            <input
-                type="email"
-                id="email"
-                formControlName="email"
-                class="form-control w-100"
-                autocomplete="off"
-            />
-            </div>
+<section class="auth">
+  <div class="container w-100 h-100">
+    <app-header />
 
-            <div class="col-12">
-            <label for="password" class="mb-2">{{
-                "profile.password" | translate
-            }}</label>
-            <input
-                type="password"
-                id="password"
-                formControlName="password"
-                class="form-control w-100"
-                autocomplete="off"
-            />
-            </div>
-        </form>
+    <div
+      class="row h-75 d-flex justify-content-center align-items-center align-content-center"
+      [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'"
+    >
+      <form
+        [formGroup]="signInForm"
+        (ngSubmit)="signInUser()"
+        autocomplete="off"
+        [autofocus]="false"
+      >
+        <div class="col-12 mb-4">
+          <label for="email" class="mb-2">{{
+            "profile.email" | translate
+          }}</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="form-control w-100"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="col-12">
+          <label for="password" class="mb-2">{{
+            "profile.password" | translate
+          }}</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="form-control w-100"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="col-12 d-flex my-4 align-items-center gap-2">
+            <p class="m-0">{{ "auth.NoAccount" | translate }}</p>
+  
+            <a class="redirectBtn d-flex align-items-center" routerLink="/signUp">
+              <span>{{ "auth.signUpBtn" | translate }}</span>
+              <i
+                class="bi"
+                [class.bi-arrow-right-short]="
+                  translateService.currentLang === 'en'
+                "
+                [class.bi-arrow-left-short]="
+                  translateService.currentLang === 'ar'
+                "
+              ></i>
+            </a>
+          </div>
+
+        <div class="col-12 d-flex justify-content-center align-content-center">
+          <button class="btn authBtn px-5 my-4" appMainButtons >
+            {{ "auth.signInBtn" | translate }}
+          </button>
+        </div>
+      </form>
     </div>
   </div>
 </section>

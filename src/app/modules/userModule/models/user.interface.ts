@@ -1,4 +1,4 @@
-export interface UserInfo {
+export interface UserProfileInfo {
     name: string,
     title: string,
     company: string,
@@ -7,4 +7,11 @@ export interface UserInfo {
     email: string,
     github?: string,
     linkedin?: string,
+}
+
+
+export interface CurrentUser {
+    token: string,
+    email: string,
+    uid: string
 }

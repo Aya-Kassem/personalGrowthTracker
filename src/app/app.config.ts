@@ -1,6 +1,6 @@
 import { provideEffects } from '@ngrx/effects';
-import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
-import { AuthModule } from '@angular/fire/auth';
+import { provideFirebaseApp, initializeApp, FirebaseApp } from '@angular/fire/app';
+import { Auth, AuthModule, getAuth, provideAuth } from '@angular/fire/auth';
 import { FirestoreModule, getFirestore, provideFirestore } from '@angular/fire/firestore';
 import { HttpClient, provideHttpClient } from '@angular/common/http';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
@@ -13,8 +13,12 @@ import { navbarReducer } from './shared/Store/navbar/navbar.reducers';
 import { ThemeReducer } from './shared/Store/project-theme/theme.reducer';
 import { ThemeEffects } from './shared/Store/project-theme/theme.effects';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } from '@angular/core';
+import { ApplicationConfig, importProvidersFrom, inject, provideZoneChangeDetection } from '@angular/core';
 import { environment } from '../envirements/enviroments';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+import { AngularFireModule, FIREBASE_OPTIONS } from '@angular/fire/compat';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
@@ -38,11 +42,14 @@ export const appConfig: ApplicationConfig = {
           deps: [HttpClient],
         },
       }),
+      AngularFireModule,
+      AngularFirestoreModule,
       AuthModule,
-      FirestoreModule
     ),
     provideFirebaseApp(() => initializeApp(environment.firebaseConfig)),
     provideFirestore(() => getFirestore()),
+    provideAuth(() => getAuth(inject(FirebaseApp))),
+    { provide: FIREBASE_OPTIONS, useValue: environment.firebaseConfig },
     provideStore({
       navbarToggler: navbarReducer,
       themeToggler: ThemeReducer,

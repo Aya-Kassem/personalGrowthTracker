@@ -1,10 +1,16 @@
-<section class="signUp" >
+<section class="auth">
   <div class="container w-100 h-100">
     <app-header />
     <div
       class="row h-75 d-flex justify-content-center align-items-center align-content-center"
-      [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr' ">
-      <form [formGroup]="signUpForm" (ngSubmit)="signUpUser()">
+      [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'"
+    >
+      <form
+        [formGroup]="signUpForm"
+        (ngSubmit)="signUpUser()"
+        autocomplete="off"
+        [autofocus]="false"
+      >
         <div class="col-12 mb-4">
           <label for="email" class="mb-2">{{
             "profile.email" | translate
@@ -29,9 +35,29 @@
           />
         </div>
 
-        <div class="col-12 d-flex justify-content-center align-content-center">
-            <button class="btn signUpBtn px-5 my-4" appMainButtons >{{ 'auth.signUpBtn' | translate }}</button>
+        <div class="col-12 d-flex my-4 align-items-center gap-2">
+          <p class="m-0">{{ "auth.ExitAccount" | translate }}</p>
+
+          <a class="redirectBtn d-flex align-items-center" routerLink="/signIn">
+            <span>{{ "auth.signInBtn" | translate }}</span>
+            <i
+              class="bi"
+              [class.bi-arrow-right-short]="
+                translateService.currentLang === 'en'
+              "
+              [class.bi-arrow-left-short]="
+                translateService.currentLang === 'ar'
+              "
+            ></i>
+          </a>
         </div>
+
+        <div class="col-12 d-flex justify-content-center align-content-center">
+          <button class="btn authBtn px-5 mb-4" appMainButtons>
+            {{ "auth.signUpBtn" | translate }}
+          </button>
+        </div>
+        
       </form>
     </div>
   </div>

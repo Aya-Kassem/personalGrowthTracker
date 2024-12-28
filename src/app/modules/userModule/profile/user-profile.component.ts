@@ -4,9 +4,6 @@ import { BehaviorSubject, takeUntil } from 'rxjs';
 import { UnsubscripeHelperClass } from '../../../shared/Helpers/removeSubscription';
 import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { Auth, AuthModule, getAuth, onAuthStateChanged } from '@angular/fire/auth';
-import { FirebaseApp } from '@angular/fire/app';
-import { addDoc, collection, Firestore } from 'firebase/firestore';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -29,27 +26,15 @@ export class UserProfileComponent extends UnsubscripeHelperClass {
   userForm: FormGroup = new FormGroup({});
   defaultUserImg: string = '/img/default-profile.png';
   isEditMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  app: FirebaseApp = inject(FirebaseApp);
-  appAuthState = inject(Auth);
   authService = inject(AuthService);
-  
+
   constructor(public _TranslateService: TranslateService) {
     super();
   }
+  
   ngOnInit() {
     this.createUserForm();
     this.disableField();
-    
-
-    // onAuthStateChanged(this.appAuthState, (user) => {
-    //   if (user) {
-    //     console.log('User is signed in:', user.uid);
-    //     this.authService.testFireStore(user.uid);
-    //   } else {
-    //     console.log('No user is signed in.');
-    //   }
-    // })
-    
   }
   
   createUserForm() {
@@ -67,6 +52,9 @@ export class UserProfileComponent extends UnsubscripeHelperClass {
 
   editProfile() {
     // if(!this.isEditMode$.value) return;
+    if(!this.userForm.valid) return;
+
+    this.authService.setUserProfile(this.userForm.value);
   }
 
   disableField() {

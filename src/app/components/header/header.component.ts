@@ -10,6 +10,7 @@ import {
 import { MainButtonsDirective } from '../../shared/Directives/app-button.directive';
 import { toggleTheme } from '../../shared/Store/project-theme/theme.action';
 import { UnsubscripeHelperClass } from '../../shared/Helpers/removeSubscription';
+import { AuthService } from '../../modules/userModule/services/auth.service';
 
 @Component({
   selector: 'app-header',
@@ -28,6 +29,8 @@ export class HeaderComponent extends UnsubscripeHelperClass {
   isNavOpened: boolean = true;
   currentLang: string = '';
   _TranslateService = inject(TranslateService);
+  authService = inject(AuthService);
+  
   constructor() {
     super();
   }

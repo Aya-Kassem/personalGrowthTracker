@@ -6,7 +6,8 @@
     "auth":{
         "signInBtn": "تسجيل الدخول",
         "signUpBtn": "إنشاء حساب",
-        "ExitAccount": "هل لديك حساب؟!"
+        "ExitAccount": "لديك حساب بالفعل ؟!",
+        "NoAccount": "ليس لديك حساب ؟!"
     },
     "profile":{
         "name": "الإسم",

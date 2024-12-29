@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
-import { UserCredential } from 'firebase/auth';
+import { FireStoreService } from '../../../../shared/Services/fireStore.service';
 
 @Component({
   selector: 'app-signIn',
@@ -12,6 +12,7 @@ import { UserCredential } from 'firebase/auth';
 })
 export class SignInComponent {
   private authService = inject(AuthService);
+  private fireStoreService = inject(FireStoreService);
   _FormBuilder = inject(FormBuilder);
   signInForm!: FormGroup;
   translateService = inject(TranslateService);
@@ -19,6 +20,8 @@ export class SignInComponent {
 
   ngOnInit() {
     this.createSignInForm();
+    this.signInForm.get('email')?.setValue(this.authService.userAuth.email);
+    this.signInForm.get('password')?.setValue(this.authService.userAuth.password);
   }
 
   createSignInForm() {
@@ -35,13 +38,17 @@ export class SignInComponent {
     this.authService
       .signIn(email, password)
       .then((userCredential) => {
-        if (userCredential?.user?.uid) {
-          this.authService.createUserCollection();
-          this.router.navigate(['profile'])
-        };
+        if (userCredential?.user?.uid) this.checkIfUserExist();
       })
       .catch((err) => {
         console.error(err);
       });
+  }
+
+  checkIfUserExist() {
+    this.fireStoreService.checkIfDocumentExist('users').then((userExist) => {
+      if (!userExist) this.fireStoreService.createUserCollection();
+      this.router.navigate(['profile']);
+    });
   }
 }

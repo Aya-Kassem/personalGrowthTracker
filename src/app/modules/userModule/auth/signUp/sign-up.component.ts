@@ -18,7 +18,6 @@ export class SignUpComponent {
   router = inject(Router);
 
   ngOnInit() {
-    //this.signIn();
     this.createSignInForm();
   }
 
@@ -30,20 +29,15 @@ export class SignUpComponent {
   }
 
   signUpUser(){
-    // if(!this.signUpForm.valid) return;
-    // let email = this.signUpForm.get('email')?.value;
-    // let password = this.signUpForm.get('password')?.value;
-    // this.authService.createUser(email, password).then((userCredential) => {
-    //   console.log(userCredential.user);
-    //   const token = userCredential?.user?.accessToken;
-    //   this.saveToken(token);
-    //   this.router.navigate(['signIn']);
-    // }).catch((error) => {
-    //   console.error(error);
-    // })
+    if(!this.signUpForm.valid) return;
+    let email = this.signUpForm.get('email')?.value;
+    let password = this.signUpForm.get('password')?.value;
+    this.authService.createUser(email, password).then((userCredential) => {
+      this.authService.userAuth = {email, password};
+      if(userCredential?.user.uid) this.router.navigate(['signIn']);
+    }).catch((error) => {
+      console.error(error);
+    })
   }
 
-  saveToken(token: string){
-    if(token) localStorage.setItem('authToken', token)
-  }
 }

@@ -18,6 +18,7 @@
         "github": "Github Account",
         "linkedin": "Linkedin Account",
         "edit": "Edit Profile",
-        "password": "Password"
+        "password": "Password",
+        "joinDate": "Join Date"
     }
 }

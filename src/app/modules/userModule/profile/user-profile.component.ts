@@ -1,10 +1,11 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BehaviorSubject, takeUntil } from 'rxjs';
 import { UnsubscripeHelperClass } from '../../../shared/Helpers/removeSubscription';
 import { IMAGE_LOADER, ImageLoaderConfig } from '@angular/common';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthService } from '../services/auth.service';
+import { UserProfileInfo } from '../Models/user.interface';
+import { FireStoreService } from '../../../shared/Services/fireStore.service';
 
 @Component({
   standalone: false,
@@ -21,24 +22,37 @@ import { AuthService } from '../services/auth.service';
     },
   ],
 })
+
 export class UserProfileComponent extends UnsubscripeHelperClass {
-  private _FormBuilder: FormBuilder = inject(FormBuilder);
+  //DEPENDENCIES
+  private formBuilder: FormBuilder = inject(FormBuilder);
+  private fireStoreService = inject(FireStoreService);
+  public translateService = inject(TranslateService);
+
+  userProfile = input<UserProfileInfo>();
   userForm: FormGroup = new FormGroup({});
   defaultUserImg: string = '/img/default-profile.png';
-  isEditMode$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  authService = inject(AuthService);
+  isEditMode: boolean = false;
+  isUserProfileExists$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(
+    false
+  );
 
-  constructor(public _TranslateService: TranslateService) {
+  constructor() {
     super();
   }
-  
+
   ngOnInit() {
     this.createUserForm();
+    const userProfile = this.userProfile();
+    if (userProfile) {
+      this.userForm.patchValue(userProfile);
+      this.isUserProfileExists$.next(true);
+    }
     this.disableField();
   }
-  
+
   createUserForm() {
-    this.userForm = this._FormBuilder.group({
+    this.userForm = this.formBuilder.group({
       name: ['', [Validators.required, Validators.minLength(3)]],
       title: ['', [Validators.required, Validators.minLength(3)]],
       company: ['', [Validators.required, Validators.minLength(3)]],
@@ -47,33 +61,36 @@ export class UserProfileComponent extends UnsubscripeHelperClass {
       email: ['', [Validators.required, Validators.email]],
       github: [''],
       linkedin: [''],
+      joinDate: ['']
     });
   }
 
   editProfile() {
-    // if(!this.isEditMode$.value) return;
-    if(!this.userForm.valid) return;
-
-    this.authService.setUserProfile(this.userForm.value);
+    if (!this.userForm.valid) return;
+    this.fireStoreService.setUserProfile(this.userForm.value);
   }
 
   disableField() {
-    this.isEditMode$
-      .pipe(takeUntil(this.destroy$))
-      .subscribe((isEditMode) => {
-        if (!isEditMode) {
-          Object.keys(this.userForm.controls).forEach((key) => {
-            this.userForm.controls[key].disable();
-          });
-        } else {
-          Object.keys(this.userForm.controls).forEach((key) => {
-            this.userForm.controls[key].enable();
-          });
-        }
-      });
+    this.isUserProfileExists$.pipe(takeUntil(this.destroy$)).subscribe((isProfileExist) => {
+      if (isProfileExist && !this.isEditMode) {
+        Object.keys(this.userForm.controls).forEach((key) => {
+          this.userForm.controls[key].disable();
+        });
+      } else {
+        Object.keys(this.userForm.controls).forEach((key) => {
+          this.userForm.controls[key].enable();
+        });
+      }
+    });
   }
 
   enableEditMode() {
-    this.isEditMode$.next(true);
+    this.isEditMode = true;
+    this.disableField();
+  }
+
+  navigateToAccount(account: string, accountType: string){
+    if(account) window.open(account, '_blank');
+    else console.log(`Your Account is Not Correct ${accountType} Account`);    
   }
 }

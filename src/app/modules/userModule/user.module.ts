@@ -22,6 +22,7 @@ import { HeaderComponent } from '../../components/header/header.component';
     TranslatePipe,
     HeaderComponent
   ],
-  exports: []
+  exports: [],
+  providers: []
 })
 export class UserModule {}

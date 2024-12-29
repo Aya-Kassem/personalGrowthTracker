@@ -1,96 +1,156 @@
-<section class="userInfo" >
-  <app-header />
-  <div class="container ">
-    <div class="row" [dir]="_TranslateService.currentLang === 'ar' ? 'rtl' : 'ltr'">
+<section class="userInfo">
+  <div class="container">
+    <app-header />
+    <div
+      class="row"
+      [dir]="translateService.currentLang === 'ar' ? 'rtl' : 'ltr'"
+    >
       <form (ngSubmit)="editProfile()" [formGroup]="userForm" class="w-100">
-        <div class="col-12 text-center mb-4">
+        <div class="col-12 text-center mb-5">
           <div class="user-img d-flex flex-column align-items-center">
-            <img [ngSrc]="defaultUserImg" alt="user img" width="150" height="150" priority placeholder/>
+            <img
+              [ngSrc]="defaultUserImg"
+              alt="user img"
+              width="150"
+              height="150"
+              priority
+              placeholder
+            />
+            @if( isUserProfileExists$ | async ){
             <div
               class="editProfileSection mt-2 d-flex justify-content-center align-items-center w-100"
             >
               <button class="btn" (click)="enableEditMode()">
-                {{ 'profile.edit' | translate }}
+                {{ "profile.edit" | translate }}
               </button>
               <i class="bi bi-pencil-square"></i>
             </div>
+            }
           </div>
         </div>
 
-        <div class="col-12 mb-3">
-          <label for="name" class="mb-2">{{ 'profile.name' | translate }}</label>
-          <input
-            type="text"
-            formControlName="name"
-            id="name"
-            class="form-control w-100"
-          />
+        <div
+          class="d-flex align-items-center gap-4 form-group flex-column flex-sm-row mb-4"
+        >
+          <div class="col-12 col-sm-6">
+            <label for="name" class="mb-2">{{
+              "profile.name" | translate
+            }}</label>
+            <input
+              type="text"
+              formControlName="name"
+              id="name"
+              class="form-control w-100"
+            />
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <label class="mb-2" for="email">{{
+              "profile.email" | translate
+            }}</label>
+            <input
+              type="email"
+              formControlName="email"
+              id="email"
+              class="form-control w-100"
+            />
+          </div>
         </div>
 
-        <div class="col-12 mb-2">
-          <label for="title" class="mb-2">{{ 'profile.title' | translate }}</label>
-          <input
-            type="text"
-            formControlName="title"
-            id="title"
-            class="form-control w-100"
-          />
+        <div
+          class="d-flex align-items-center gap-4 form-group flex-column flex-sm-row mb-4"
+        >
+          <div class="col-12 col-sm-6">
+            <label for="title" class="mb-2">{{
+              "profile.title" | translate
+            }}</label>
+            <input
+              type="text"
+              formControlName="title"
+              id="title"
+              class="form-control w-100"
+            />
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <label for="company" class="mb-2">{{
+              "profile.company" | translate
+            }}</label>
+            <input
+              type="text"
+              formControlName="company"
+              id="company"
+              class="form-control w-100"
+            />
+          </div>
         </div>
 
-        <div class="col-12 mb-2">
-          <label for="company" class="mb-2">{{ 'profile.company' | translate }}</label>
-          <input
-            type="text"
-            formControlName="company"
-            id="company"
-            class="form-control w-100"
-          />
+        <div
+          class="d-flex align-items-center gap-4 form-group flex-column flex-sm-row mb-4"
+        >
+          <div class="col-12 col-sm-6">
+            <label class="mb-2" for="contractType">{{
+              "profile.contract-type" | translate
+            }}</label>
+            <input
+              type="text"
+              formControlName="contractType"
+              id="contractType"
+              class="form-control w-100"
+            />
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <label class="mb-2" for="joinDate">{{
+              "profile.joinDate" | translate
+            }}</label>
+            <input
+              type="text"
+              formControlName="joinDate"
+              id="joinDate"
+              class="form-control w-100"
+            />
+          </div>
         </div>
 
-        <div class="col-12 mb-2">
-          <label class="mb-2" for="contractType">{{ 'profile.contract-type' | translate }}</label>
-          <input
-            type="text"
-            formControlName="contractType"
-            id="contractType"
-            class="form-control w-100"
-          />
+        <div
+          class="d-flex align-items-center gap-4 form-group flex-column flex-sm-row mb-4"
+        >
+          <div class="col-12 col-sm-6">
+            <label class="mb-2" for="github">{{
+              "profile.github" | translate
+            }}</label>
+            <input
+              #github
+              type="text"
+              formControlName="github"
+              id="github"
+              class="form-control w-100"
+              [class.clickable]="github.value"
+              (click)="navigateToAccount(github.value, 'Github')"
+            />
+          </div>
+
+          <div class="col-12 col-sm-6">
+            <label class="mb-2" for="linkedin">{{
+              "profile.linkedin" | translate
+            }}</label>
+            <input
+              #linkedin
+              type="text"
+              formControlName="linkedin"
+              id="linkedin"
+              class="form-control w-100"
+              [class.clickable]="linkedin.value"
+              (click)="navigateToAccount(linkedin.value, 'Linkedin')"
+            />
+          </div>
         </div>
 
-        <div class="col-12 mb-2">
-          <label class="mb-2" for="email">{{ 'profile.email' | translate }}</label>
-          <input
-            type="email"
-            formControlName="email"
-            id="email"
-            class="form-control w-100"
-          />
-        </div>
-
-        <div class="col-12 mb-2">
-          <label class="mb-2" for="github">{{ 'profile.github' | translate }}</label>
-          <input
-            type="text"
-            formControlName="github"
-            id="github"
-            class="form-control w-100"
-          />
-        </div>
-
-        <div class="col-12 mb-2">
-          <label class="mb-2" for="linkedin">{{ 'profile.linkedin' | translate }}</label>
-          <input
-            type="text"
-            formControlName="linkedin"
-            id="linkedin"
-            class="form-control w-100"
-          />
-        </div>
-
-        @if(isEditMode$ | async){
-        <div class="col-12 text-center mt-3">
+        @if( !(isUserProfileExists$ | async) || isEditMode ){
+        <div class="col-12 text-center mt-5 mb-4">
           <button type="submit" appMainButtons class="btn saveProfileBtn px-5">
-            {{ 'shared.save' | translate }}
+            {{ "shared.save" | translate }}
           </button>
         </div>
         }

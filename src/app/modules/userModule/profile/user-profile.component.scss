@@ -28,8 +28,14 @@
     }
   }
 
-  .saveProfileBtn,
+  
   .form-control {
     color: var(--text-color);
+  }
+
+  label,
+  .saveProfileBtn{
+    font-weight: 500;
+    color: var(--secondaryColor);
   }
 }

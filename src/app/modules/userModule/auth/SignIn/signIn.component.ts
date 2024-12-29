@@ -1,4 +1,4 @@
-import { Component, inject, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
@@ -13,7 +13,7 @@ import { FireStoreService } from '../../../../shared/Services/fireStore.service'
 export class SignInComponent {
   private authService = inject(AuthService);
   private fireStoreService = inject(FireStoreService);
-  _FormBuilder = inject(FormBuilder);
+  formBuilder = inject(FormBuilder);
   signInForm!: FormGroup;
   translateService = inject(TranslateService);
   router = inject(Router);
@@ -25,7 +25,7 @@ export class SignInComponent {
   }
 
   createSignInForm() {
-    this.signInForm = this._FormBuilder.group({
+    this.signInForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
     });
@@ -48,7 +48,7 @@ export class SignInComponent {
   checkIfUserExist() {
     this.fireStoreService.checkIfDocumentExist('users').then((userExist) => {
       if (!userExist) this.fireStoreService.createUserCollection();
-      this.router.navigate(['profile']);
+      this.router.navigate(['dashboard/profile']);
     });
   }
 }

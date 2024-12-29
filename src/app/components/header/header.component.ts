@@ -1,5 +1,5 @@
 import { AsyncPipe, CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { TranslatePipe, TranslateService } from '@ngx-translate/core';
 import { Store } from '@ngrx/store';
 import { Observable, takeUntil } from 'rxjs';
@@ -11,6 +11,8 @@ import { MainButtonsDirective } from '../../shared/Directives/app-button.directi
 import { toggleTheme } from '../../shared/Store/project-theme/theme.action';
 import { UnsubscripeHelperClass } from '../../shared/Helpers/removeSubscription';
 import { AuthService } from '../../modules/userModule/services/auth.service';
+import { FireStoreService } from '../../shared/Services/fireStore.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -28,9 +30,12 @@ export class HeaderComponent extends UnsubscripeHelperClass {
     this.AppStore.select('navbarToggler');
   isNavOpened: boolean = true;
   currentLang: string = '';
-  _TranslateService = inject(TranslateService);
+  translateService = inject(TranslateService);
   authService = inject(AuthService);
-  
+  fireStoreService = inject(FireStoreService);
+  withinDashboard = input<boolean>();
+  router = inject(Router);
+
   constructor() {
     super();
   }
@@ -41,9 +46,8 @@ export class HeaderComponent extends UnsubscripeHelperClass {
 
   changeLang() {
     this.currentLang =
-      this._TranslateService.currentLang === 'en' ? 'ar' : 'en';
-    this._TranslateService.use(this.currentLang);
-    //this.setAppDirection();
+      this.translateService.currentLang === 'en' ? 'ar' : 'en';
+    this.translateService.use(this.currentLang);
   }
 
   toggleNavbar() {
@@ -62,9 +66,7 @@ export class HeaderComponent extends UnsubscripeHelperClass {
     this.AppStore.dispatch(toggleTheme());
   }
 
-  setAppDirection() {
-    this.currentLang === 'ar'
-      ? (document.body.style.direction = 'rtl')
-      : (document.body.style.direction = 'ltr');
+  navigateToProfile(){
+    this.router.navigate(['dashboard/profile']);
   }
 }

@@ -3,7 +3,7 @@
 >
   <div class="icons d-flex align-items-md-center">
     <i
-      *ngIf="authService.userUID | async"
+      *ngIf="((fireStoreService.currentUser | async)?.uid) && withinDashboard()"
       class="bi bi-list clickable me-2"
       (click)="toggleNavbar()"
     ></i>
@@ -24,8 +24,9 @@
 
     <div
       appMainButtons
-      class="user d-flex align-items-center"
-      *ngIf="authService.userUID | async"
+      class="user d-flex align-items-center clickable"
+      (click)="navigateToProfile()"
+      *ngIf="((fireStoreService.currentUser | async)?.uid) && withinDashboard()"
     >
       <img
         src="img/default-profile.png"
